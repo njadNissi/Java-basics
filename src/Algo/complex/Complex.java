@@ -73,6 +73,21 @@ public class Complex {
         return new Complex(realNum, imagNum);
     }
 
+    public void setReal(double realNumber){
+        this.realNum = realNumber;
+    }
+
+    public double getReal(){
+        return this.realNum;
+    }
+    public void setImaginary(double imaginaryNum){
+        this.realNum = imaginaryNum;
+    }
+
+    public double getImaginary(){
+        return this.imaginaryNum;
+    }
+
     public static Complex add(Complex c1, Complex c2){
         return new Complex(c1.realNum + c2.realNum, c1.imaginaryNum + c2.imaginaryNum);
     }
@@ -95,7 +110,7 @@ public class Complex {
     }
 
     public String toString() {
-        String complexNumber = "";
+        String complexNumber = null;
         try{
             if (this.realNum >= 1 && this.imaginaryNum == 1)
                 complexNumber = this.realNum + " + " + IMAGINARY_SYMBOL;
@@ -104,16 +119,14 @@ public class Complex {
             else if (this.realNum >= 1 && this.imaginaryNum <= -1)
                 complexNumber = this.realNum + " - " + IMAGINARY_SYMBOL + Math.abs(this.imaginaryNum);
             else if (this.realNum >= 1 && this.imaginaryNum== 0)
-                complexNumber += this.realNum;
+                complexNumber = String.valueOf(this.realNum);
             else if (this.realNum == 0 && this.imaginaryNum >= 2)
                 complexNumber = IMAGINARY_SYMBOL + "" + this.imaginaryNum;
             else if (this.realNum < 0 && this.imaginaryNum < -1)
                 complexNumber = this.realNum + " - " + IMAGINARY_SYMBOL + "" + Math.abs(this.imaginaryNum);
             else if (this.realNum < 0 && this.imaginaryNum >= 2)
                 complexNumber = this.realNum + " + " + IMAGINARY_SYMBOL + "" + Math.abs(this.imaginaryNum);
-        } catch (Exception e){
-
-        }
+        } catch (Exception e){}
 
         return complexNumber;
     }
