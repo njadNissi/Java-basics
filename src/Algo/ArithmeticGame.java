@@ -3,20 +3,19 @@ package Algo;
 import java.util.Random;
 import java.util.Scanner;
 
-public class RandomNumbersGame {
+public class ArithmeticGame {
     
     public static void main(String[] args) {
 
         int choice = 1, score = 0;
         float rightAnswer = 0, yourAnswer = 0;
-        Random rand = new Random();
+        Random random = new Random();
         Scanner scanner = new Scanner(System.in);
         
         while(choice == 1){
-
-            float num1 = rand.nextFloat(500);
-            float num2 = rand.nextFloat(500);
-            int op = rand.nextInt(4);
+            int num1 = random.nextInt(-500,500);
+            int num2 = random.nextInt(-500,500);
+            int op = random.nextInt(4);
             
             System.out.println("      Find\n-----------------------");  
                 switch(op){
@@ -29,8 +28,14 @@ public class RandomNumbersGame {
                 if(yourAnswer == rightAnswer) {
                     System.out.println("Correct!");
                     score += 5;
+                } else if((op == 2 || op == 3) && Math.abs(yourAnswer - rightAnswer) < 1){
+                    System.out.println("not bad! answer = " + rightAnswer);
+                    score += 4;
                 }
-                else System.out.println("Wrong!");
+                else {
+                    System.out.println("Wrong! right answer = " + rightAnswer);
+                    score -= 2.5;
+                }
             
             System.out.println("actual score: " + score);
             

@@ -1,9 +1,9 @@
 
-package Algo.arrays;
+package Algo;
 
 import java.util.Scanner;
 
-public class ArrayMidValue { 
+public class FindMidValue {
     
     static float calculateAverage(float[] numbers){
         float sum = 0;

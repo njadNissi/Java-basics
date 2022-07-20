@@ -1,9 +1,9 @@
-package Algo.arrays;
+package Algo;
 
 import java.util.Scanner;
 
 
-public class ArrayExtremum {
+public class FindExtremums {
     static double maxValue(double[] array){
         double max = array[0];
         int index = 0;
