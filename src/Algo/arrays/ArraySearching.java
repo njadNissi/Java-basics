@@ -1,8 +1,8 @@
-package Algo;
+package Algo.arrays;
 
 import java.util.Scanner;
 
-public class Array_Searching {
+public class ArraySearching {
     public static int linearSearching(int[] array, int key){
         int pos = -1, flag = 0;
         for(int i = 0; i < array.length; i++){

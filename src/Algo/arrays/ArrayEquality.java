@@ -1,9 +1,9 @@
-package Algo;
+package Algo.arrays;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Array_Equality {
+public class ArrayEquality {
     //check the content equality, no matter the order
     public static boolean EqualArrays(int[] list1, int[] list2){
        boolean flag = true;

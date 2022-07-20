@@ -2,7 +2,7 @@ package Algo;
 
 import java.util.Scanner;
 
-public class GCD_array {
+public class GreatCommonDivisor {
     
     public static void main(String[] args) {
     

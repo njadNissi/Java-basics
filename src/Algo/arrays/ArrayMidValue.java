@@ -1,5 +1,5 @@
 
-package Algo;
+package Algo.arrays;
 
 import java.util.Scanner;
 

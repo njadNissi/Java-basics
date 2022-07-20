@@ -1,8 +1,8 @@
-package Algo;
+package Algo.arrays;
 
 import java.util.Scanner;
 
-public class Array_3D {
+public class Array3D {
     /*
     Suppose the scores are stored in a threedimensional array named scores. 
      The first index in scores refers to   student, the second refers to an exam, and the third refers to a part of the exam.
@@ -11,7 +11,8 @@ public class Array_3D {
     */
     
     public static void main(String[] args) {
-        int scores[][][] = new int[2][2][2];//6 students, 5 exams, each exam 2parts
+
+        int scores[][][] = new int[4][3][2];//4 students, 3 exams, each exam 2 parts
         
         System.out.println("3D-Array implementation\n==============================\n");
         Scanner scan = new Scanner(System.in);
@@ -41,9 +42,11 @@ public class Array_3D {
                     System.out.println("");
                 }
                 }
-//            for(int[][] row: scores)
-//                for(int[][] col: scores)
-//                    for(int[][] cell: scores)
-//                    System.out.println(cell);
+
+                /**Printing with Enhance-For loop*/
+/*            for(int[][] row: scores)
+                for(int[][] col: scores)
+                    for(int[][] cell: scores)
+                    System.out.println(cell);*/
     }
 }
