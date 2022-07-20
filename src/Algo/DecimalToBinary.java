@@ -12,14 +12,17 @@ public class DecimalToBinary {
         return ((strBinary.charAt(a) - '0') << (size - a - 1)) + binToDec(strBinary, a + 1);
     }
 
-    static int decToBinRec(int dec) {
-        if (dec == 0) {
+    static int decToBinRecursive(int dec) {
+        if (dec == 0)
             return 0;
-        } else {
-            return (dec % 2) + (10 * (decToBinRec(dec / 2)));
-        }
+        else
+            return (dec % 2) + (10 * (decToBinRecursive(dec / 2)));
     }
 
+    /**
+     * positive and Negative decimals all supported
+     * and number of bits is up to choice.
+     */
     static String decToBin(int decimalValue) {
         String binary = "";
         //getting the mods of each half
@@ -30,6 +33,18 @@ public class DecimalToBinary {
         return binary;
     }
 
+    static String decToBin(int digitsNo, int number) {
+        /** N >> x operator gets the bit at pos x from the binary of the number N*/
+        StringBuilder binary = new StringBuilder();
+        for (int i = digitsNo; i >= 0; i--)
+            binary.append(String.valueOf((number >> i) & 1));
+        return binary.toString();
+    }
+
+    /**
+     * negative decimals Unsupported
+     * number of bits is the necessary.
+     */
     static int binToDec(int binaryNumber) {
         int decimal = 0;
         int p = 0;
@@ -63,9 +78,16 @@ public class DecimalToBinary {
                     System.out.print("  Decimal to Binary\n Number: ");
                     decimal = scanner.nextInt();
                     System.out.println(" Binary: " + decToBin(decimal));
-                    System.out.println(" Binary: " + decToBinRec(decimal));
+                    System.out.println(" Binary: " + decToBinRecursive(decimal));
             }
             System.out.println();
         }
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(decToBin(4, -10));
+        System.out.println(decToBin(-10));
+
     }
 }

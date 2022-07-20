@@ -10,7 +10,7 @@ package Algo;
  * @author njad
  */
 public class ByteOperations {
-    
+
     static String twosComplement(String bin){
         /**One's complement*/
         StringBuilder onesComplement = new StringBuilder();

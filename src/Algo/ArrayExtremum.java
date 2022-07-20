@@ -4,11 +4,10 @@ import java.util.Scanner;
 
 
 public class ArrayExtremum {
-    
     static double maxValue(double[] array){
         double max = array[0];
         int index = 0;
-        for(int k = 0 ; k < array.length; k++){
+        for(int k = 1 ; k < array.length; k++){
             if(max < array[k]){
                 max = array[k];
                 index = k;
@@ -21,7 +20,7 @@ public class ArrayExtremum {
     static double minValue(double[] array){
         double min = array[0];
         int index = 0;
-        for(int k = 0 ; k < array.length; k++){
+        for(int k = 1 ; k < array.length; k++){
             if(min > array[k]){
                 min = array[k];
                 index = k;

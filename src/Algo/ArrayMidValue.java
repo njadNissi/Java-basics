@@ -6,13 +6,10 @@ import java.util.Scanner;
 public class ArrayMidValue { 
     
     static float calculateAverage(float[] numbers){
-        float average = 0;
-        for(int i = 0; i < numbers.length; i++){
-            average += numbers[i];
-        }
-        average /= numbers.length;
-        
-        return average;
+        float sum = 0;
+        for(int i = 0; i < numbers.length; i++)
+            sum += numbers[i];
+        return sum /= numbers.length;
     }
     
     public static void main(String[] args) {
@@ -31,4 +28,5 @@ public class ArrayMidValue {
             if(values[i] > average)
                 System.out.print(values[i]+"    ");
     }
+
 }
