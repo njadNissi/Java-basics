@@ -2,13 +2,13 @@ package Algo.complex;
 
 public class Complex {
 
-    private double realNum;
-    private double imaginaryNum;
-    private static final char IMAGINARY_SYMBOL = 'j';
+    private double realPart;
+    private double imaginaryPart;
+    private static char IMAGINARY_NUMBER = 'j';
 
     private Complex(double real, double imaginary) {
-        this.realNum = real;
-        this.imaginaryNum = imaginary;
+        this.realPart = real;
+        this.imaginaryPart = imaginary;
     }
 
     public static Complex fromRealNumber(double realNumber) {
@@ -25,83 +25,84 @@ public class Complex {
      * and consequently to a null object.
      * For a null real number case, please use fromImaginaryNumber() method.
      * For a null imaginary number case, please use fromRealNumber() method.
-     * */
-    public static Complex fromExpression(String expression) throws IncorrectComplexNumberException {
-        expression = removeSpaces(expression);
-        int indexOfImaginarySymbol = expression.indexOf(IMAGINARY_SYMBOL);
-        int lastDigit = expression.length() - 1; //in substring last index is exclusive
-        int indexOfPlusOperator = expression.lastIndexOf('+');
-        int indexOfMinusOperator = expression.lastIndexOf('-');
-        int indexOfOperator;
-        double realNum = 0, imagNum = 0;
-
-        /**if last index of plus is > 0 then the operator between the two parts is plus
-         * otherwise is minus*/
-        if (indexOfPlusOperator > 0)
-            indexOfOperator = indexOfPlusOperator;
-        else
-            indexOfOperator = indexOfMinusOperator;
-
+     */
+    public static Complex fromExpression(String exp) throws IncorrectComplexNumberException {
+        exp = removeSpaces(exp);
+        double realNum = 0, imaginaryNum = 0;
         try {
-            /**With the known index of the operator, check the order of the two ports give
-             * the index of i*/
-            if (indexOfImaginarySymbol == 0 || indexOfImaginarySymbol == 1) {
-                /**  index == 0 -> positive imaginary, index == 1 -> negative imaginary
-                 * case of imaginaryPart operator realPart*/
-                if (indexOfImaginarySymbol + 1 == indexOfOperator)
-                    imagNum = 1;
+            if (firstImaginaryPartThenRealPart(exp)) {
+                if (exp.indexOf(IMAGINARY_NUMBER) + 1 == getIndexOfOperator(exp)) {
+                    imaginaryNum = 1;
+                } else
+                    imaginaryNum = Double.parseDouble(exp.substring(exp.indexOf(IMAGINARY_NUMBER) + 1, getIndexOfOperator(exp)));
+                realNum = Double.parseDouble(exp.substring(getIndexOfOperator(exp) + 1));
+            } else {/**index > 1 -> case of realPart operator imaginaryPart*/
+                realNum = Double.parseDouble(exp.substring(0, getIndexOfOperator(exp)));
+                if (exp.indexOf(IMAGINARY_NUMBER) == exp.length() - 1)//case of 4 + 5j
+                    imaginaryNum = 1;
                 else
-                    imagNum = Double.parseDouble(expression.substring(indexOfImaginarySymbol + 1, indexOfOperator));
-                realNum = Double.parseDouble(expression.substring(indexOfOperator + 1, lastDigit + 1));
-            } else {
-                /**  index > 1 -> case of realPart operator imaginaryPart
-                 * if s*/
-                realNum = Double.parseDouble(expression.substring(0, indexOfOperator));
-                if (indexOfImaginarySymbol == lastDigit)//case of 4 + 5j
-                    imagNum = 1;
-                else
-                    imagNum = Double.parseDouble(expression.substring(indexOfImaginarySymbol + 1, lastDigit + 1));
+                    imaginaryNum = Double.parseDouble(exp.substring(exp.indexOf(IMAGINARY_NUMBER) + 1));
             }
-            if (expression.charAt(indexOfOperator) == '-')
-                imagNum *= -1;
-        } catch (Exception e){
-            if(expression.isEmpty()
-            || (!expression.contains("+") && !expression.contains("-")))
+            if (exp.charAt(getIndexOfOperator(exp)) == '-') imaginaryNum *= -1;
+        } catch (Exception e) {
+            if (exp.isEmpty() || (!exp.contains("+") && !exp.contains("-")))
                 throw new IncorrectComplexNumberException();
         }
-
-        return new Complex(realNum, imagNum);
+        return new Complex(realNum, imaginaryNum);
     }
 
-    public void setReal(double realNumber){
-        this.realNum = realNumber;
+    public static void customizeImaginaryNumber(char symbol) {
+        if (symbol >= 'a' && symbol <= 'z')
+            Complex.IMAGINARY_NUMBER = symbol;
     }
 
-    public double getReal(){
-        return this.realNum;
-    }
-    public void setImaginary(double imaginaryNum){
-        this.realNum = imaginaryNum;
+    public static int getPowerOfImaginaryNumber(int power) {
+        return (power % 2 == 0 ? 1 : -1);
     }
 
-    public double getImaginary(){
-        return this.imaginaryNum;
+    public void setReal(double realNumber) {
+        this.realPart = realNumber;
     }
 
-    public static Complex add(Complex c1, Complex c2){
-        return new Complex(c1.realNum + c2.realNum, c1.imaginaryNum + c2.imaginaryNum);
+    public double getReal() {
+        return this.realPart;
     }
 
-    public static Complex subtract(Complex c1, Complex c2){
-        return new Complex(c1.realNum - c2.realNum, c1.imaginaryNum - c2.imaginaryNum);
+    public void setImaginary(double imaginaryNum) {
+        this.realPart = imaginaryNum;
     }
 
-    public static Complex multiply(Complex c1, Complex c2){
-        return new Complex(c1.realNum * c2.realNum - (c1.imaginaryNum * c2.imaginaryNum),
-                c1.realNum * c2.imaginaryNum + c2.realNum * c1.imaginaryNum);
+    public double getImaginary() {
+        return this.imaginaryPart;
     }
 
-    private static String removeSpaces(String expression){
+    public static Complex add(Complex... numbers) {
+        Complex sumOfComplexes = new Complex(0, 0);
+        for (Complex c : numbers) {
+            sumOfComplexes.realPart += c.realPart;
+            sumOfComplexes.imaginaryPart += c.imaginaryPart;
+        }
+        return sumOfComplexes;
+    }
+
+    public static Complex subtract(Complex c1, Complex c2) {
+        return new Complex(c1.realPart - c2.realPart, c1.imaginaryPart - c2.imaginaryPart);
+    }
+
+    public static Complex multiply(Complex c1, Complex c2) {
+        return new Complex(c1.realPart * c2.realPart - (c1.imaginaryPart * c2.imaginaryPart),
+                c1.realPart * c2.imaginaryPart + c2.realPart * c1.imaginaryPart);
+    }
+
+    private static boolean firstImaginaryPartThenRealPart(String expression) {
+        /**  index == 0 -> positive imaginary, index == 1 -> negative imaginary
+         * case of imaginaryPart operator realPart.
+         * example => j4 or -j4
+         * */
+        return (expression.indexOf(IMAGINARY_NUMBER) == 0 || expression.indexOf(IMAGINARY_NUMBER) == 1);
+    }
+
+    private static String removeSpaces(String expression) {
         String cleanExpression = "";
         for (char c : expression.toCharArray())
             if (c != ' ')
@@ -109,26 +110,40 @@ public class Complex {
         return cleanExpression;
     }
 
-    public String toString() {
-        String complexNumber = null;
-        try{
-            if (this.realNum >= 1 && this.imaginaryNum == 1)
-                complexNumber = this.realNum + " + " + IMAGINARY_SYMBOL;
-            else if (this.realNum >= 1 && this.imaginaryNum >= 2)
-                complexNumber = this.realNum + " + "+ "" + IMAGINARY_SYMBOL + this.imaginaryNum;
-            else if (this.realNum >= 1 && this.imaginaryNum <= -1)
-                complexNumber = this.realNum + " - " + IMAGINARY_SYMBOL + Math.abs(this.imaginaryNum);
-            else if (this.realNum >= 1 && this.imaginaryNum== 0)
-                complexNumber = String.valueOf(this.realNum);
-            else if (this.realNum == 0 && this.imaginaryNum >= 2)
-                complexNumber = IMAGINARY_SYMBOL + "" + this.imaginaryNum;
-            else if (this.realNum < 0 && this.imaginaryNum < -1)
-                complexNumber = this.realNum + " - " + IMAGINARY_SYMBOL + "" + Math.abs(this.imaginaryNum);
-            else if (this.realNum < 0 && this.imaginaryNum >= 2)
-                complexNumber = this.realNum + " + " + IMAGINARY_SYMBOL + "" + Math.abs(this.imaginaryNum);
-        } catch (Exception e){}
+    private static int getIndexOfOperator(String expression) {
+        /**if last index of plus is > 0 then the operator between the two parts is plus
+         * otherwise is minus*/
+        if (expression.lastIndexOf('+') > 0)
+            return expression.lastIndexOf('+');
+        else
+            return expression.lastIndexOf('-');
+    }
 
-        return complexNumber;
+    public String toString() {
+        try {
+            if (this.realPart < 0) {
+                if (this.imaginaryPart < -1)
+                    return this.realPart + " - " + IMAGINARY_NUMBER + "" + Math.abs(this.imaginaryPart);
+                if(this.imaginaryPart == 0)
+                    return this.realPart + "";
+                if (this.imaginaryPart >= 2)
+                    return this.realPart + " + " + IMAGINARY_NUMBER + "" + Math.abs(this.imaginaryPart);
+            }
+            if (this.realPart == 0 && this.imaginaryPart >= 2)
+                return IMAGINARY_NUMBER + "" + this.imaginaryPart;
+            if (this.realPart >= 1) {
+                if (this.imaginaryPart == 1)
+                    return this.realPart + " + " + IMAGINARY_NUMBER;
+                if (this.imaginaryPart == 0)
+                    return String.valueOf(this.realPart);
+                if (this.imaginaryPart >= 2)
+                    return this.realPart + " + " + "" + IMAGINARY_NUMBER + this.imaginaryPart;
+                if (this.imaginaryPart <= -1)
+                    return this.realPart + " - " + IMAGINARY_NUMBER + Math.abs(this.imaginaryPart);
+            }
+        } catch (Exception e) {
+        }
+        return null; /**If both parts are zeros*/
     }
 
 }

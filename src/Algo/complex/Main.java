@@ -10,14 +10,14 @@ public class Main {
         Complex z3 = Complex.subtract(z1, z2);
         System.out.println(z1 + " - " + z2 + " = " + z3);
 
-        Complex[] complexes = new Complex[9]; //41+j2
+        Complex[] complexes = new Complex[7]; //41+j2
         complexes[0] = Complex.fromExpression(" 4 1+j2");
         complexes[1] = Complex.fromExpression("+41 +j2");
         complexes[2] = Complex.fromExpression("41- j 2");
         complexes[3] = Complex.fromExpression("-41-j2 ");
         complexes[4] = Complex.fromExpression("-4+j2");
         complexes[5] = Complex.fromExpression("41+j");
-        complexes[6] = Complex.fromExpression("j");
+        complexes[6] = Complex.fromExpression("j-41");
 
         for (Complex c : complexes)
             System.out.println(c);
