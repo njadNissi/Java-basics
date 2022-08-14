@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author hp
  */
-public class AproximatingPI {
+public class ApproximatingPI {
     public static void main(String[] args) { 
         double PI = 0; int input;
 

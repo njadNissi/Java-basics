@@ -1,4 +1,4 @@
-package Algo.complex;
+package Algo.complex_number;
 
 public class Complex {
 
@@ -76,6 +76,10 @@ public class Complex {
         return this.imaginaryPart;
     }
 
+    public double getModulus(){
+        return Math.sqrt(Math.pow(this.realPart, 2) + Math.pow(this.imaginaryPart, 2));
+    }
+
     public static Complex add(Complex... numbers) {
         Complex sumOfComplexes = new Complex(0, 0);
         for (Complex c : numbers) {
@@ -124,7 +128,7 @@ public class Complex {
             if (this.realPart < 0) {
                 if (this.imaginaryPart < -1)
                     return this.realPart + " - " + IMAGINARY_NUMBER + "" + Math.abs(this.imaginaryPart);
-                if(this.imaginaryPart == 0)
+                if (this.imaginaryPart == 0)
                     return this.realPart + "";
                 if (this.imaginaryPart >= 2)
                     return this.realPart + " + " + IMAGINARY_NUMBER + "" + Math.abs(this.imaginaryPart);

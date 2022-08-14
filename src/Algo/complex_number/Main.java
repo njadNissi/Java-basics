@@ -1,4 +1,4 @@
-package Algo.complex;
+package Algo.complex_number;
 
 public class Main {
 
@@ -23,5 +23,7 @@ public class Main {
             System.out.println(c);
 
         System.out.println("(-4+j2) * (j+4) = " + Complex.multiply(complexes[4], complexes[6]));
+
+        System.out.println("|" + complexes[4] + "| = " + complexes[4].getModulus());
     }
 }

@@ -1,4 +1,4 @@
-package Algo.complex;
+package Algo.complex_number;
 
 public class IncorrectComplexNumberException extends Exception {
 
